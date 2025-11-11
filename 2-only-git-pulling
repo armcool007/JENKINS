@@ -1,0 +1,15 @@
+pipeline {
+    agent any 
+        stages {
+            stage ("git url") {
+                steps {
+                    git url: 'https://gitlab.com/armcool007/java-war-diff-2-project.git', branch: 'war2'
+                }
+            }
+            stage ('print') {
+                steps {
+                    sh "echo 'success'"
+                }
+            }
+        }
+}

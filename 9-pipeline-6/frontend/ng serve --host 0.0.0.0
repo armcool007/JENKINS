@@ -1,0 +1,21 @@
+mujhe ek baat bta ki tune merese package.json me start wali line me change krvawa "start": "ng serve --host 0.0.0.0"
+toh ye effect toh nai daalega jb mai backend se connect karunga toh?
+
+Bilkul nahi! 😊
+"start": "ng serve --host 0.0.0.0" ka backend se connection par koi negative effect nahi padta —
+Bilkul opposite! Yeh frontend ko backend se connect karne ke liye zaroori hai jab tum Docker ya remote server pe chala rahe ho.
+
+🔍 Samjho Step-by-Step:
+✅ --host 0.0.0.0 ka kaam kya hai?
+Ye frontend server (Angular) ko sab network interfaces (localhost, 192.168.x.x, 0.0.0.0, etc.) pe sunne ke liye kehta hai.
+Bina iske, Angular sirf localhost pe sunta hai → sirf container ke andar se access ho sakta hai.
+❌ Agar tum --host 0.0.0.0 na daalo:
+Tum Docker container ke bahar se (jaise browser, laptop, ya backend) frontend tak nahi pahunch paoge.
+curl http://<IP>:9091 → Connection refused / reset
+Browser → Page not loading
+✅ Agar tum --host 0.0.0.0 daalte ho:
+Tum kahi se bhi (laptop, mobile, backend, Postman) frontend tak pahunch sakte ho.
+Aur frontend → backend call bhi kar sakta hai (jaise fetch('http://<IP>:9090/contacts'))
+🔑 Yaad rakho:
+--host 0.0.0.0 → frontend ko "bahar se access karne layak" banata hai
+Iska backend se koi direct relation nahi hai, lekin frontend → backend call ke liye indirect zaroorat hai 

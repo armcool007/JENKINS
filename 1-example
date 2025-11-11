@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+               sh "echo 'Hello World' > alphabet.txt"
+            }
+        }
+    }
+}
+#echo "'Hello World' > alphabet.txt"
+#→ Jenkins ne sirf yeh text print kiya console par,
+#→ Koi file create nahi hui,
+#→ Kyunki echo Jenkins ka apna step hai — ye shell command nahi chalata.
+#Agar tum file banana chahte ho, toh shell command chalani padegi, aur uske liye Jenkins mein sh step hota hai
+
+

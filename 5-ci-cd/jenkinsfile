@@ -1,0 +1,29 @@
+pipeline {
+	agent any
+	stages {
+		stage ("git clone") {
+			steps {
+				git url: 'https://gitlab.com/armcool007/java-war-diff-2-project.git', branch: 'war4'
+			}
+		}		
+		stage ("docker build") {
+			steps {
+				sh "pwd"
+				sh "docker build -t armcool004/maven-web-testing-1"
+			}
+		}
+		stage ("docker push") {
+			steps {
+				
+					sh 'docker login -u  armcool004 -p $dockerPass'			
+			}
+		}
+		stage ("k8s deploy") {
+			steps {
+				sh 'kubectl apply -f Deployment.yml'
+			}
+		}
+	
+	}	
+}
+

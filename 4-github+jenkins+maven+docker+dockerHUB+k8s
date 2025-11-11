@@ -1,0 +1,34 @@
+
+pipeline {
+    agent any
+    tools {
+        maven "maven-3.9.11"
+        jdk "openjdk-17"
+    }
+    stages {
+        stage ("git url") {
+            steps {
+                git url: "https://gitlab.com/armcool007/java-war-diff-2-project.git", branch: 'war3'
+            }
+        }
+        stage ("docker build") {
+            steps {
+                    sh "pwd"
+                    sh "docker build -t armcool004/jenkins-war-1 ."   
+            }
+        }
+        stage ("docker push") {
+            steps {
+                withCredentials([string(credentialsId: 'dockerID', variable: 'dockerPass')]) {
+                    sh 'docker login -u armcool004 -p $dockerPass'
+                    sh 'docker push armcool004/jenkins-war-1'
+                }
+            }
+        }
+        stage ("k8s deploy") {
+            steps {
+                sh "kubectl apply -f maven-web-app.yml"
+            }
+        }
+    }
+}

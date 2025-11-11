@@ -1,0 +1,17 @@
+##note## <LBR/tomcat> to access the website bcoz maine container me isi name se image rakha hai war file ka.
+
+sh 'kubectl set image deployment/tomcat-dep-app tom-container=armcool004/maven-web-testing-1:v1'
+if we are using the above command:
+firstly why we are using this command (agr phle se he pods are deployed toh agr toh hum github repo me files me kuch changes krte hain toh this we automatically update the pods and new data will be reflected) also use poll scm.
+if above command is used for first time toh Haan, error dega — agar aap set image pehle use karenge bina deployment ke.
+kyu?
+kubectl set image deployment/XYZ ... command tabhi kaam karta hai jab XYZ naam ka deployment pehle se cluster mein exist karta ho.
+
+meaning of set image and why we are using it:
+set image ka Matlab?
+set image = "Kubernetes ko bolo ki ab is deployment ke container ki image badal do." 
+
+🔹 Detail Mein:
+Kubernetes mein deployment ek blueprint hota hai — batata hai ki kis image se pod banana hai.
+Jab tak aap deployment update nahi karte, tab tak Kubernetes purani image hi use karta rahega.
+kubectl set image deployment ko update karta hai → specifically container ki image tag change karta hai.

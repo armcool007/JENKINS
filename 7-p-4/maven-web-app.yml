@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: maven-war
+  labels:
+    app: java-war
+spec:
+  containers:
+    - name: war-app
+      image: armcool004/jenkins-war-1
+      ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maven-war-svc
+spec:
+  selector:
+    app: java-war
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+
+

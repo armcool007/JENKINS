@@ -1,0 +1,4 @@
+frontend se backend connection banane k liye humko frontend me jake backend ka <LBR URL> paste karna hoga.
+go to frontend 
+        $vi /src/app/contact.service.ts
+        change the <private baseUrl> with the LBR URL of backend.

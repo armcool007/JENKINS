@@ -1,0 +1,16 @@
+pipeline {
+	agent any
+	stages {
+		stage ("git clone") {
+			steps {
+				git url: 'https://gitlab.com/armcool007/java-war-diff-2-project.git', branch: 'war5'
+			}		
+		}
+		stage ("k8s deployment")
+			steps {
+				//sh 'kubectl set image deployment/tomcat-dep-app tom-container=armcool004/maven-web-testing-1:v1'
+				sh 'kubectl apply -f deployment.yml'
+			}
+		}
+	}
+}

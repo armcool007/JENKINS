@@ -1,0 +1,34 @@
+
+pipeline {
+        agent any
+        stages {
+                stage ("git clone") {
+                        steps {
+                                git url: 'https://gitlab.com/armcool007/java-war-diff-2-project.git', branch: 'war5'
+                        }
+                }
+                stage ("docker build") {
+                        steps {
+                                sh "pwd"
+                                sh "docker build -t armcool004/maven-web-testing-1:v1 ."
+                        }
+                }
+                stage ("docker push") {
+			steps {
+					withCredentials([string(credentialsId: 'dockerID', variable: 'dockerPass')]) {
+						sh 'docker login -u  armcool004 -p $dockerPass'
+						sh 'docker push armcool004/maven-web-testing-1'
+					}
+			}
+
+                }
+		stage ("trigger cd job") {
+			steps {
+				build 'jenkin_cd_job'	
+			}
+		}	
+
+        }
+}
+
+
